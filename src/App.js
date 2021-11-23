@@ -1,13 +1,11 @@
 import React from 'react';
-import Test1 from './components/Test1';
-import './assets/css/reset.css'
-import Business from './sample/Business';
+import Test5 from './components/Test5';
+// import './assets/css/reset.css'
 
 const App = () => {
   return (
     <div>
-      <Test1 />
-      <Business />
+      <Test5 />    
     </div>
   );
 };
