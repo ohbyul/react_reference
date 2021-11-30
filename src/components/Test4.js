@@ -1,31 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+import m0 from '../assets/img/m0.jpg'
 
 const Test4 = () => {
-    //useState 이용 - color 
-    const [ color , setColor ] = useState('tomato')
-    const [ text , setText ] = useState('')
-
-    const onSelect = ()  => {
-        setColor( text )
-    }
-    const changeColor  = (e) => {
-        const { value } = e.target 
-        setText( value )
-    }
-
     return (
         <div>
-            <h2 style={{ color:color, fontSize:50 }}> color 변경하기 </h2>
-             <select onChange = { changeColor }>
-                <option value="red"> red </option>
-                <option value="green"> green </option>
-                <option value="blue"> blue </option>
-                <option value="pink"> pink </option>
-                <option value="lime"> lime </option>
-            </select>
-            <button  onClick={ onSelect }>선택</button>
+          <p>
+              <img src={ m0 } alt="" />
+          </p>  
+          <p>
+              <img src="./images/cat0.jpg" alt="" />
+          </p>
         </div>
     );
 };
 
 export default Test4;
+
+/*
+    1. src 안에 이미지를 가지고 올경우 
+    import 참조변수 form '경로'
+    <img src={ 참조변수} />
+
+    2. public 안에 이미지 가져올경우 
+    <img src="./이미지경로" />
+
+*/

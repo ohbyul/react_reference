@@ -1,34 +1,40 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 const Test1 = () => {
-    const idRef = useRef(null)
+    const [ data , setData ] = useState([])
+    //[{id:1, text:홍길동},{id:2, text:홍길동}]
 
-    const [ userid , setUserid ] = useState('')
-    const [ userpw , setUserpw ] = useState('')
-
-    const changeInput1 = ( e ) =>{
-        setUserid( e.target.value )
+    const onAdd1 = ()  => {
+        setData( data.concat({id:data.length , text:'홍길동'+Math.floor(Math.random()*10)}))
     }
-    const changeInput2 = (e) =>{
-        const { value } = e.target 
-        setUserpw ( value )
+    const onAdd2  = ()  => {
+        const newData = data.concat({id:data.length , text:'전지현'+Math.floor(Math.random()*10 )})
+        
+        setData( newData )
     }
-    const onReset = ()  => {
-        setUserid('')
-        setUserpw('')
-        idRef.current.focus()
+    
+    const onAdd  = ()  => {
+        setData([
+            ...data ,
+            {
+                id:data.length ,
+                text:'유재석'+Math.floor(Math.random()*10)
+            }
+        ])  
     }
 
     return (
         <div>
-            <input type="text" onChange={ changeInput1 } 
-            value={ userid } ref={idRef} />
-            <input type="text" onChange={ changeInput2 } 
-            value={ userpw } />
-            <button onClick={ onReset }>초기화</button>
+            <h2>데이터 추가</h2>
+            <button onClick={ onAdd }> 추가 </button>
             <hr/>
-            <h2>아이디: { userid } </h2>
-            <h2>비밀번호: { userpw } </h2>            
+            <ul>
+                {
+                    data.map( item => <li key={item.id}>
+                        {item.id} / {item.text}
+                    </li>)
+                }
+            </ul>
         </div>
     );
 };
