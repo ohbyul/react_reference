@@ -1,11 +1,12 @@
 import React from 'react';
-import Test4 from './components/Test4';
-// import './assets/css/reset.css'
+import './assets/css/reset.css' 
+import Starbucks from './starbucks/Starbucks';
+ 
 
 const App = () => {
   return (
-    <div>
-      <Test4 />
+    <div>      
+       <Starbucks />
     </div>
   );
 };

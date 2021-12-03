@@ -1,37 +1,64 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import Test1Sub from './Test1Sub';
 
 const Test1 = () => {
-    const [ data , setData ] = useState([])
-    //[{id:1, text:홍길동},{id:2, text:홍길동}]
+    const no = useRef(6)
+    const [ data , setData ] = useState([
+        {id:1, name:'홍길동'},
+        {id:2, name:'강호동'},
+        {id:3, name:'김철수'},
+        {id:4, name:'전지현'},
+        {id:5, name:'송혜교'},
+    ])
 
-    const onAdd1 = ()  => {
-        setData( data.concat({id:data.length , text:'홍길동'+Math.floor(Math.random()*10)}))
-    }
-    const onAdd2  = ()  => {
-        const newData = data.concat({id:data.length , text:'전지현'+Math.floor(Math.random()*10 )})
-        
-        setData( newData )
-    }
-    
-    const onAdd  = ()  => {
+    const onAdd1 = () => {
         setData([
             ...data ,
             {
-                id:data.length ,
-                text:'유재석'+Math.floor(Math.random()*10)
+                id:no.current++ ,
+                name:'이정재'
             }
-        ])  
+        ])
     }
+
+    //삭제
+    const onDel1 = ()  => {
+        setData( data.filter( item => item.id !== 1 ))
+    }
+    const onDel2 = ()  => {
+        setData( data.filter( item => item.id !== 4 ))
+    }
+    const onDel = ( id )  => {
+        setData( data.filter( item => item.id !== id ))
+    }
+
+    //수정
+    const modify = (id)  => {
+        //수정
+        setData( data.map( item => item.id === id ? {...item,name:'고민지'} :item ))
+    }
+
+    /*
+        setData( data.map( item => {
+            if( item.id === id ) {
+                return {
+                ...item,
+                name:'고민지'
+                }
+            }
+            return item 
+        } ))
+
+    */
 
     return (
         <div>
-            <h2>데이터 추가</h2>
-            <button onClick={ onAdd }> 추가 </button>
+            <Test1Sub onAdd1={onAdd1} onDel1={onDel1} onDel2={onDel2}  onDel={onDel} modify={modify} />
             <hr/>
             <ul>
                 {
                     data.map( item => <li key={item.id}>
-                        {item.id} / {item.text}
+                        {item.id} / {item.name}
                     </li>)
                 }
             </ul>
