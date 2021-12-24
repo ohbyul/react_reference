@@ -1,12 +1,10 @@
 import React from 'react';
-import './assets/css/reset.css' 
-import Starbucks from './starbucks/Starbucks';
- 
+import Test7 from './components/Test7';
 
 const App = () => {
   return (
-    <div>      
-       <Starbucks />
+    <div>
+      <Test7 />
     </div>
   );
 };

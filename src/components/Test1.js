@@ -1,67 +1,57 @@
-import React, { useRef, useState } from 'react';
-import Test1Sub from './Test1Sub';
+import React, { useEffect, useState } from 'react';
+
+const dataList = [
+    {id:1, name:'홍길동'},
+    {id:2, name:'dog'},
+    {id:3, name:'DOg'},
+    {id:4, name:'Cat'},
+    {id:5, name:'cat'},
+    {id:6, name:'김철수'},
+    {id:7, name:'Kim'},
+    {id:8, name:'eun'},
+    {id:9, name:'송혜교'},
+    {id:10, name:'이효리'},
+    {id:10, name:'이젠 컴퓨터'},
+]
 
 const Test1 = () => {
-    const no = useRef(6)
-    const [ data , setData ] = useState([
-        {id:1, name:'홍길동'},
-        {id:2, name:'강호동'},
-        {id:3, name:'김철수'},
-        {id:4, name:'전지현'},
-        {id:5, name:'송혜교'},
-    ])
+    const [data, setData] = useState( dataList )
+    const [text, setText] = useState('')
 
-    const onAdd1 = () => {
-        setData([
-            ...data ,
-            {
-                id:no.current++ ,
-                name:'이정재'
-            }
-        ])
+    const changeInput = (e) => {
+        const { value } = e.target 
+        setText( value )
     }
 
-    //삭제
-    const onDel1 = ()  => {
-        setData( data.filter( item => item.id !== 1 ))
-    }
-    const onDel2 = ()  => {
-        setData( data.filter( item => item.id !== 4 ))
-    }
-    const onDel = ( id )  => {
-        setData( data.filter( item => item.id !== id ))
-    }
+    const onShow = ()  => {
+        
+        // setData( dataList.filter( item => item.name.toLowerCase().indexOf(text.toLowerCase()) !== -1 ))   
 
-    //수정
-    const modify = (id)  => {
-        //수정
-        setData( data.map( item => item.id === id ? {...item,name:'고민지'} :item ))
+        // setData( dataList.filter( item => item.name.toLowerCase().includes( text.toLowerCase()) ))
+
+        setData( dataList.filter( item => {
+            const re = new RegExp( text, 'ig')
+            return item.name.match( re )
+        }))
     }
 
-    /*
-        setData( data.map( item => {
-            if( item.id === id ) {
-                return {
-                ...item,
-                name:'고민지'
-                }
-            }
-            return item 
-        } ))
-
-    */
-
+    useEffect( () => {
+        setData( dataList.filter( item => {
+            const re = new RegExp( text, 'ig')
+            return item.name.match( re )
+        }))
+    },[text])
+    // sql 초성검사 
     return (
         <div>
-            <Test1Sub onAdd1={onAdd1} onDel1={onDel1} onDel2={onDel2}  onDel={onDel} modify={modify} />
+            <input type="text" placeholder='검색어를 입력하세요' value={text} onChange={changeInput}/>
+            <button onClick={ onShow }>검색</button>
             <hr/>
-            <ul>
-                {
-                    data.map( item => <li key={item.id}>
-                        {item.id} / {item.name}
-                    </li>)
-                }
-            </ul>
+            {
+                data.map( item => <p key={item.id}>
+                    {item.id} / { item.name }
+                </p>)
+            }
         </div>
     );
 };
