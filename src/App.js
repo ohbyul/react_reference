@@ -1,10 +1,16 @@
 import React from 'react';
-import Test7 from './components/Test7';
+// import Todos from './components/todos/Todos';
+// import Friend from './components/friend/Friend';
+import './components/assets/css/reset.css'
+
+import { Todos, Friend } from './components'
 
 const App = () => {
   return (
     <div>
-      <Test7 />
+       <Todos />
+       <hr/>
+        <Friend />
     </div>
   );
 };
